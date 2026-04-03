@@ -21,80 +21,14 @@ It currently supports:
 A Sass file containing the styles can be obtained from the package repository for use in static \
 website generators such as Jekyll, Octopress, Pelican, etc.
 
-Copyright 2021, 2024 Rocky Bernstein
+Copyright 2021, 2024, 2026 Rocky Bernstein
 (C) 2016 rsmenon
 """
 
-import sys
+from setuptools import find_packages, setup
 
-from setuptools import setup
-
-# Ensure user has the correct Python version
-if sys.version_info < (3, 6):
-    print("mathicsscript does not support Python %d.%d" % sys.version_info[:2])
-    sys.exit(-1)
-
-
-import os.path as osp
-
-
-def get_srcdir():
-    filename = osp.normcase(osp.dirname(osp.abspath(__file__)))
-    return osp.realpath(filename)
-
-
-def read(*rnames):
-    return open(osp.join(get_srcdir(), *rnames)).read()
-
-
-# stores __version__ in the current namespace
-exec(
-    compile(read("mathics_pygments/version.py"), "mathics_pygments/version.py", "exec")
-)
-
-setup(
-    name="mathics_pygments",
-    version=__version__,  # noqa
-    description="Mathematica/Wolfram Language Lexer for Pygments",
-    long_description=__doc__,
-    long_description_content_type="text/x-rst",
-    author="Rocky Bernstein",
-    author_email="rb@dustyfeet.com",
-    license="MIT",
-    keywords="syntax highlighting mathematica",
-    url="http://github.com/Mathics3/mathics-pygments/",
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: End Users/Desktop",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
-        "Topic :: Text Processing",
-        "Topic :: Utilities",
-    ],
-    packages=["mathics_pygments"],
-    package_data={
-        "mathics_pygments": [
-            "data/mma-tables.json",
-        ],
-    },
-    install_requires=["Pygments >= 2.9.0", "Mathics_Scanner>=1.3.0"],
-    include_package_data=False,
-    platforms=["any"],
-    entry_points={
-        "pygments.lexers": ["MathematicaLexer = mathics_pygments:MathematicaLexer"],
-        "pygments.styles": [
-            "mathematica = mathics_pygments:MathematicaStyle",
-            "mathematicanotebook = mathics_pygments:MathematicaNotebookStyle",
-        ],
-    },
-    zip_safe=False,
-)
+if __name__ == "__main__":
+    setup(
+        packages=find_packages(),
+        include_package_data=True,
+    )

@@ -6551,7 +6551,7 @@ SYSTEM_SYMBOLS = {
 }
 
 # The Mathics parser can't handle Degree ("uB0") as an operator, so we'll add it here.
-UNICODE_OPERATORS = set(list(_data["unicode-operators"].keys()) + ["\u00B0"])
+UNICODE_OPERATORS = set(list(_data["unicode-operators"].keys()) + ["\u00b0"])
 
 UNICODE_OPERATORS_OLD = {
     "·",  # \[CenterDot]
