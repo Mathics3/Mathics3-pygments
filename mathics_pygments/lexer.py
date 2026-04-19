@@ -32,7 +32,7 @@ class Regex:
 
 class MToken:
     """
-    Mathics3 Tokens. Like Pygments Token but for Mathics.
+    Mathics3 Tokens. Like Pygments Token but for Mathics3.
 
     Class variables contain Mathics3 tokens like BUILTIN, COMMENT.
     These variables hold the corresponding Pygments token-name value.
