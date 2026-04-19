@@ -1,12 +1,21 @@
 CHANGES
 =======
 
+10.0.0
+------
+
+"Mathics" has been renamed to "Mathics3".
+
+The bump in version number from 1.0.4 to 10.0.0 is to simplify understaning compatibility between all Mathics3 10 API components.
+
+Small administrative changes have been made for the ever-changing Python environment.
+
 1.0.4
 -----
 
 This is a Transitional release.
 
-Although there is a dependency on mathics-scanner, we don't use it since tables have changed. There is some code for reading the YAML takes from the project though. With a newer and better mathics-scanner, we should be able to revise this code, use the tokenizer from mathics-scanner, and simplify things greatly.
+Although there is a dependency on Mathics3-scanner, we don't use it since tables have changed. There is some code for reading the YAML takes from the project though. With a newer and better mathics-scanner, we should be able to revise this code, use the tokenizer from mathics-scanner, and simplify things greatly.
 
 1.0.3
 -----
@@ -44,8 +53,8 @@ Note: There are still a few tests from pygments-mathematica that fail.
 
 First public release. Is largely the same thing as
 pygments-mathematica, but we are geared for CLI use in mathicsscript and
-we get operator information from Mathics Scanner.
+we get operator information from Mathics3 Scanner.
 
 For uses outside of terminal use, pygments-mathematica is probably better.
 But over time I expect this will change since we will draw more power from
-Mathics Scanner.
+Mathics3 Scanner.
