@@ -1,37 +1,34 @@
 # Mathematica lexer and highlighter for Pygments
 
-[![mathics-pygments (OSX)](https://github.com/Mathics3/mathics-pygments/actions/workflows/osx.yaml/badge.svg)](https://github.com/Mathics3/mathics-pygments/actions/workflows/osx.yaml)
-[![mathics-pygments (ubuntu)](https://github.com/Mathics3/mathics-pygments/actions/workflows/ubuntu.yaml/badge.svg)](https://github.com/Mathics3/mathics-pygments/actions/workflows/ubuntu.yaml)
-![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
-[![Packaging status](https://repology.org/badge/tiny-repos/mathics-pygments.svg)](https://repology.org/project/mathics-pygments/versions)
-
+[![Mathics3-pygments (ubuntu)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/ubuntu.yml)
+[![Mathics3-pygments (MacOS)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/macos.yml/badge.svg)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/macos.yml)
+![MIT license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 
 A lexer and highlighter for [_Mathematica_](http://wolfram.com/mathematica)/Wolfram Language
  source code using the [pygments](http://pygments.org) engine.
 
- This code is based on [pygments-mathematica](https://pypi.org/project/pygments-mathematica/) but has been specially revised so it interacts with [mathicsscript](https://pypi.org/project/mathicsscript/). As such it works better that pygments-mathematica for this use, and possibly might not be as good in other contexts. Over time though this should get address.
+ This code is based on [pygments-mathematica](https://pypi.org/project/pygments-mathematica/) but has been specially revised so it interacts with [mathicsscript](https://pypi.org/project/mathicsscript/). As such, it works better than Pygments-Mathematica for this use, and possibly might not be as good in other contexts. Over time, though, this should get addressed.
 
- Another difference, is the fact that this package relegates knowledge about operator names to [Mathics-Scanner](https://pypi.org/project/Mathics-Scanner/).
+ Another difference is the fact that this package delegates knowledge about operator names to [Mathics-Scanner](https://pypi.org/project/Mathics-Scanner/).
 
 
 ## Features
 
 It can currently lex and highlight:
 
-  - All builtin functions in the ``System` `` context including Unicode symbols like `π` except those
-  that use characters from the private Unicode space (e.g. `\[FormalA]`).
-  - User defined symbols, including those in a context.
-  - All operators including Unicode operators like `∈` and `⊕`.
-  - Comments, including multi line and nested.
-  - Strings, including multi line and escaped quotes.
-  - Patterns, slots (including named slots `#name` introduced in version 10) and slot sequences.
-  - Message names (e.g. the `ivar` in `General::ivar`)
+  - All built-in functions in the `System` context, including Unicode symbols like `π`, except those that use characters from the private Unicode space (e.g. `\[FormalA]`).
+  - User-defined symbols, including those in a context.
+  - All operators, including Unicode operators like `∈` and `⊕`.
+  - Comments, including multi-line and nested.
+  - Strings, including multi-line and escaped quotes.
+  - Patterns, slots (including named slots `#name` introduced in version 10), and slot sequences.
+  - Message names (e.g., the `ivar` in `General::ivar`)
   - Numbers including base notation (e.g. `8 ^^ 23 == 19`) and scientific notation (e.g. `1 *^ 3 == 1000`).
-  - Local variables in `Block`, `With` and `Module`.
+  - Local variables in `Block`, `With`, and `Module`.
 
 ### Example:
-```
+```mathematica
 (* An example highlighting the features of
    this Pygments plugin for Mathematica *)
 lissajous::usage = "An example Lissajous curve.\n" <>
@@ -52,11 +49,8 @@ Run `pip install mathics-pygments` from the command line. That's it!
 
 ### From source code
 
-If you'd like to make modifications to the color scheme for personal use or if you'd like to try the
-most recent release that might not yet be available in PyPi, download and unzip the source code
-from the [latest release](https://github.com/Mathics3/mathics-pygments/releases/latest). After
-you've [installed Pygments](http://pygments.org/download/) (`pip install Pygments` works well
-if you already have python setup on your system), run the following from the repo's root directory:
+If you'd like to make modifications to the color scheme for personal use or if you'd like to try the most recent release that might not yet be available in PyPi, download and unzip the source code from the [latest release](https://github.com/Mathics3/Mathics3-pygments/releases/latest). After
+you've [installed Pygments](http://pygments.org/download/) (`pip install Pygments` works well if you already have Python set up on your system), run the following from the repo's root directory:
 
 ```bash
 python setup.py install
@@ -64,11 +58,11 @@ python setup.py install
 
 ## Usage
 
-### Server-side syntax highlighting in Jekyll, Octopress and other static websites
+### Server-side syntax highlighting in Jekyll, Octopress, and other static websites
 
 To highlight _Mathematica_ code using this lexer, enclose the code between these liquid tags:
 
-```
+```Jinja
 {% highlight wl %}
 <your code here>
 {% endhighlight %}
@@ -83,9 +77,7 @@ require 'pygments'
 Pygments.start('<path to your python env>/site-packages/pygments/')
 ```
 
-> **NOTE:** Although this lexer is registered with the names `mathematica` and `mma` for use as language hints, the
-default lexer that ships with Pygments overrides this. Hence until this is incorporated into the main Pygments repository
-please use `wl` or `wolfram` or `wolfram-language` as the language hint.
+> **NOTE:** Although this lexer is registered with the names `mathematica` and `mma` for use as language hints, the default lexer that ships with Pygments overrides this. Hence, until this is incorporated into the main Pygments repository, please use `wl` or `wolfram` or `wolfram-language` as the language hint.
 
 ### Highlighting in LaTeX documents
 
@@ -122,7 +114,7 @@ Saving the above as `mma.tex` and running `xelatex --shell-escape mma.tex` shoul
 
 The [Pelican static generator](http://blog.getpelican.com/) is written in Python and uses Pygments by default. To use it there, you mark code blocks with the usual 4 spaces indent and you prepend it with `:::wl` if you are using Markdown
 
-```
+```wl
     :::wl
     FileNames["CodeGenerator.m", {$InstallationDirectory}, 4]
     (*
@@ -132,7 +124,7 @@ The [Pelican static generator](http://blog.getpelican.com/) is written in Python
 
 If you are using ReStructuredText, please mark your *Mathematica* code with
 
-```
+```RsT
 .. code-block:: wl
 
    <indented code block goes here>
@@ -140,8 +132,7 @@ If you are using ReStructuredText, please mark your *Mathematica* code with
 
 ### Command line usage
 
-The `pygmentize` command can be used to invoke this lexer and convert any _Mathematica_ file to an appropriately
-highlighted file in a different format. For example, to convert a file `package.m` to a HTML file, run
+The `pygmentize` command can be used to invoke this lexer and convert any _Mathematica_ file to an appropriately highlighted file in a different format. For example, to convert a file `package.m` to an HTML file, run
 
 ```bash
 pygmentize -O full,style=mathematica -f html -l wl -o package.html package.m
@@ -158,7 +149,7 @@ using the `sass` compiler as:
 make mma.css  # Same thing as: sass mma.scss mma.css
 ```
 
-For other applications including command line usage, the lexer ships with a style named `mathematica`.
+For other applications, including command line usage, the lexer ships with a style named `mathematica`.
 (See the arguments to the `pygmentize` command in the section above.) To use different colors, modify
 the style in `mathics_pygemnts/style.py` and run `python setup.py install` again.
 
@@ -166,12 +157,9 @@ If you fancy the default style that ships with the _Mathematica_ notebook, use t
 
 ## Limitations
 
-It cannot highlight lexically and dynamically scoped variables (e.g. the `x` in `With[{x = 1}, x + 1]` or
-the `Plus` in `Block[{Plus = Times}, 2 + 3]`, etc.) consistently throughout their scope. This would require a
-parser that further processes the stream of tokens and builds an AST that captures the semantics of the language.
+It cannot highlight lexically and dynamically scoped variables (e.g., the `x` in `With[{x = 1}, x + 1]` or the `Plus` in `Block[{Plus = Times}, 2 + 3]`, etc.) consistently throughout their scope. This would require a parser that further processes the stream of tokens and builds an AST that captures the semantics of the language.
 
-This is currently not a high priority since it is non-trivial to implement it within the framework
-by Pygments, but I am interested in supporting this eventually, so collaborations/pull requests are welcome :)
+This is currently not a high priority since it is non-trivial to implement within the framework by Pygments, but I am interested in supporting this eventually, so collaborations/pull requests are welcome :)
 
 ## Acknowledgments
 

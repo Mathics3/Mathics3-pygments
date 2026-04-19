@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2021, 2024 Rocky Bernstein
+# Copyright (c) 2021, 2024, 2026 Rocky Bernstein
 # Copyright (c) 2016 rsmenon
 # Licensed under the MIT License (https://opensource.org/licenses/MIT)
 
@@ -32,9 +32,9 @@ class Regex:
 
 class MToken:
     """
-    Mathics Tokens. Like Pygments Token but for Mathics.
+    Mathics3 Tokens. Like Pygments Token but for Mathics3.
 
-    Class variables contain Mathics tokens like BUILTIN, COMMENT.
+    Class variables contain Mathics3 tokens like BUILTIN, COMMENT.
     These variables hold the corresponding Pygments token-name value.
 
     The style, e.g. "colorful", "zenburn", "xcode", ultimately determines
