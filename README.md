@@ -8,7 +8,7 @@
 A lexer and highlighter for [_Mathematica_](http://wolfram.com/mathematica)/Wolfram Language
  source code using the [pygments](http://pygments.org) engine.
 
- This code is based on [pygments-mathematica](https://pypi.org/project/pygments-mathematica/) but has been specially revised so it interacts with [mathicsscript](https://pypi.org/project/mathicsscript/). As such, it works better than Pygments-Mathematica for this use, and possibly might not be as good in other contexts. Over time, though, this should get addressed.
+ This code is based on [pygments-mathematica](https://pypi.org/project/pygments-mathematica/) but has been specially revised so it interacts with [mathicsscript](https://pypi.org/project/mathicsscript/). As such, it works better than Pygments-Mathematica for this use, and possibly might not be as good in other contexts. Over time, this will be addressed.
 
  Another difference is the fact that this package delegates knowledge about operator names to [Mathics-Scanner](https://pypi.org/project/Mathics-Scanner/).
 
@@ -53,7 +53,7 @@ If you'd like to make modifications to the color scheme for personal use or if y
 you've [installed Pygments](http://pygments.org/download/) (`pip install Pygments` works well if you already have Python set up on your system), run the following from the repo's root directory:
 
 ```bash
-python setup.py install
+pip install -e . 
 ```
 
 ## Usage
@@ -112,7 +112,7 @@ Saving the above as `mma.tex` and running `xelatex --shell-escape mma.tex` shoul
 
 ### Pelican static page generator
 
-The [Pelican static generator](http://blog.getpelican.com/) is written in Python and uses Pygments by default. To use it there, you mark code blocks with the usual 4 spaces indent and you prepend it with `:::wl` if you are using Markdown
+The [Pelican static generator](http://blog.getpelican.com/) is written in Python and uses Pygments by default. To use it there, you mark code blocks with the usual 4 spaces indent, and you prepend it with `:::wl` if you are using Markdown
 
 ```wl
     :::wl
