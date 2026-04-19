@@ -16,14 +16,14 @@ dependencies = [
     "click",      # Using in CLI: build_pygments_tables.py
 ]
 requires-python = ">=3.11"
-readme = "README.rst"
+readme = "README.md"
 license = "MIT"
 keywords = ["Mathematica", "Syntax highlighting"]
 maintainers = [
     {name = "Mathics3 Group"},
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
@@ -50,15 +50,13 @@ dev = [
 [tool.setuptools]
 packages = [
     "mathics_pygments",
+    "mathics_pygments.generate",
 ]
 
 [tool.setuptools.package-data]
 "mathics_pygments" = [
-    "data/named-characters.yml",
-    "data/*.csv",
-    "data/characters.json",  # List this explicitly since it is needed
-    "data/*.json",
-    "data/ExampleData/*",
+    "data/mma-tables.json",
+    "data/mma-tables-new.json", # Not used yet, but eventually will replace mma-tables.json
 ]
 
 [tool.setuptools.dynamic]

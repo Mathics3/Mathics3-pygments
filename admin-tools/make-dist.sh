@@ -19,15 +19,7 @@ fi
 cd ..
 source mathics_pygments/version.py
 echo $__version__
-
-for pyversion in $PYVERSIONS; do
-    if ! pyenv local $pyversion ; then
-	exit $?
-    fi
-    rm -fr build
-    python setup.py bdist_egg
-done
-python setup.py bdist_wheel --universal
-mv -v dist/${package}-${__version__}-{py2.,}py3-none-any.whl
+pyenv local 3.13
+python -m build --wheel --no-isolation
 python ./setup.py sdist
 finish

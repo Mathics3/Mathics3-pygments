@@ -13,10 +13,16 @@ import mathics_scanner
 import yaml
 
 try:
-    from mathics_scanner.version import __version__
+    from mathics_pygments.version import __version__
 except ImportError:
-    # When using build isolation
-    __version__ = "unknown"
+    import ast
+
+    version_file = Path(__file__).parent.parent / "version.py"
+    version_content = version_file.read_text()
+    version_line = [
+        line for line in version_content.split("\n") if line.startswith("__version__")
+    ][0]
+    __version__ = ast.literal_eval(version_line.split("=")[1].strip().split("#")[0])
 
 OPERATOR_FIELDS = [
     "ascii-operators",
@@ -24,7 +30,6 @@ OPERATOR_FIELDS = [
 ]
 
 DEFAULT_DATA_DIR = Path(osp.join(osp.dirname(mathics_scanner.__file__), "data"))
-
 
 def get_srcdir() -> str:
     filename = osp.normcase(osp.dirname(osp.abspath(__file__)))
