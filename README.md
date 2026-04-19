@@ -2,6 +2,7 @@
 
 [![Mathics3-pygments (ubuntu)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/ubuntu.yml)
 [![Mathics3-pygments (MacOS)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/macos.yml/badge.svg)](https://github.com/Mathics3/Mathics3-pygments/actions/workflows/macos.yml)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/Mathics3-pygments.svg)](https://repology.org/project/mathics3-pygments/versions)
 ![MIT license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 
@@ -53,7 +54,7 @@ If you'd like to make modifications to the color scheme for personal use or if y
 you've [installed Pygments](http://pygments.org/download/) (`pip install Pygments` works well if you already have Python set up on your system), run the following from the repo's root directory:
 
 ```bash
-pip install -e . 
+pip install -e .
 ```
 
 ## Usage
