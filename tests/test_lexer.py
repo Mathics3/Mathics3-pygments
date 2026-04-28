@@ -12,9 +12,9 @@ from mathics_pygments.lexer import MathematicaLexer, MToken
 lexer = MathematicaLexer()
 
 
-def verify(code, expected):
+def verify(source_text: str, expected):
     expected.append((Token.Text.Whitespace, "\n"))
-    returned = list(lexer.get_tokens(code))
+    returned = list(lexer.get_tokens(source_text))
     assert expected == returned
 
 
@@ -123,7 +123,7 @@ def test_precision_numbers():
 
 
 def test_base_numbers():
-    code = ["2^^101", "8 ^^ 17", "10^^ 3.4"]
+    code = ["2^^101", "8^^17", "10^^3.4"]
     expected = [[(MToken.NUMBER, num)] for num in code]
     verify_all(code, expected)
 

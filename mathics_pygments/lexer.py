@@ -5,10 +5,15 @@
 
 from collections import defaultdict
 
+from pygments.filter import apply_filters
 from pygments.lexer import RegexLexer, bygroups, include, words
 from pygments.token import Token as PToken
 
 import mathics_pygments.builtins as mma
+from mathics_scanner.errors import SyntaxError
+from mathics_scanner.feed import SingleLineFeeder
+from mathics_scanner.location import ContainerKind
+from mathics_scanner.tokeniser import Tokeniser
 
 
 class Regex:
@@ -52,8 +57,8 @@ class MToken:
     PATTERN = PToken.Name.Tag
     PUNCTUATION = PToken.Punctuation
     SLOT = PToken.Name.Function
-    STRING = PToken.Generic.Emph
-    TEXT = PToken.Generic.Output
+    STRING = PToken.String
+    TEXT = PToken.Text
     SYMBOL = PToken.Name.Variable
     UNKNOWN = PToken.Error
     WHITESPACE = PToken.Text.Whitespace
@@ -126,7 +131,7 @@ class MathematicaLexer(RegexLexer):
         ],
     }
 
-    def get_tokens_unprocessed(self, text, stack=("root",)):
+    def get_tokens_unprocessed(self, text: str, stack=("root",)):
         ma = MathematicaAnnotations()
         annotations = (ma.builtins, ma.unicode, ma.lexical_scope)
         for index, token, value in RegexLexer.get_tokens_unprocessed(self, text):
@@ -135,6 +140,66 @@ class MathematicaLexer(RegexLexer):
                 result = func(*result)
 
             yield result
+
+    def get_tokens(self, text, unfiltered=False):
+        """
+        This method is based on and overrides Pygments default
+        lexer.  We do this to meld in token based on
+        Mathics3_scanners approach which is more accurate. (And
+        if it isn't we'll make it so and both Mathics3 and
+        mathics_pygments will benefit.
+
+        This method is usually called from the `highlight()`
+        function. It must process the text and return an
+        iterable of ``(tokentype, value)`` pairs from `text`.
+
+        If `unfiltered` is set to `True`, the filtering
+        mechanism is bypassed even if filters are defined.
+        """
+        source_text = self._preprocess_lexer_input(text)
+
+        # We will use Mathics3 scanner in parallel with pygment's tokenizer.
+        tokeniser = Tokeniser(
+            SingleLineFeeder(source_text, "<tokens>", ContainerKind.STRING)
+            )
+
+        def streamer():
+
+            # mathics pygments classifies comments and white space as a token, while
+            # Mathics3 scanner does not. Furthermore mathics pygments tokenizes
+            # each word inside a comment while mathics3 does not.
+            # Similarly tokens can appear inside pygments strings while they do not
+            # in Mathics3 scanner strings.
+            # Variables "end_seen", "comment_level", and "in_string" are used to bridge
+            # this mismatch.
+            end_seen = False
+            in_string = False
+            comment_level = 0
+            for _, t, v in self.get_tokens_unprocessed(source_text):
+                if t == PToken.Comment:
+                    if v == "(*":
+                        comment_level += 1
+                    else:
+                        pass
+                if comment_level == 0 and not end_seen and t != PToken.Text.Whitespace and not in_string:
+                    try:
+                        token = tokeniser.next()
+                    except SyntaxError:
+                        pass
+                    else:
+                        if token.tag == "END":
+                            end_seen = True
+                if v == "*)":
+                    comment_level -= 1
+                in_string = t == PToken.String
+
+                yield t, v
+        stream = streamer()
+        if not unfiltered:
+            stream = apply_filters(stream, self.filters, self)
+        return stream
+
+
 
 
 class _State(dict):
